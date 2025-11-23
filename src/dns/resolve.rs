@@ -1,14 +1,10 @@
-mod dns;
-
-use dns::buffer::BytePacketBuffer;
-use dns::header::ResultCode;
-use dns::packet::DnsPacket;
-use dns::question::{DnsQuestion, QueryType};
+use super::Result;
+use crate::dns::buffer::BytePacketBuffer;
+use crate::dns::header::ResultCode;
+use crate::dns::packet::DnsPacket;
+use crate::dns::question::{DnsQuestion, QueryType};
 use std::net::Ipv4Addr;
 use std::net::UdpSocket;
-
-type Error = Box<dyn std::error::Error>;
-pub type Result<T> = std::result::Result<T, Error>;
 
 fn lookup(qname: &str, qtype: QueryType, server: (Ipv4Addr, u16)) -> Result<DnsPacket> {
     let socket = UdpSocket::bind(("0.0.0.0", 43210))?;
@@ -72,7 +68,7 @@ fn recursive_lookup(qname: &str, qtype: QueryType) -> Result<DnsPacket> {
     }
 }
 
-fn handle_query(socket: &UdpSocket) -> Result<()> {
+pub fn handle_query(socket: &UdpSocket) -> Result<()> {
     let mut req_buffer = BytePacketBuffer::new();
 
     let (_, src) = socket.recv_from(&mut req_buffer.buf)?;
@@ -120,15 +116,4 @@ fn handle_query(socket: &UdpSocket) -> Result<()> {
     socket.send_to(data, src)?;
 
     Ok(())
-}
-
-fn main() -> Result<()> {
-    let socket = UdpSocket::bind(("0.0.0.0", 2053))?;
-
-    loop {
-        match handle_query(&socket) {
-            Ok(_) => {}
-            Err(e) => eprintln!("An error occured: {}", e),
-        }
-    }
 }

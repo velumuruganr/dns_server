@@ -1,4 +1,4 @@
-use crate::Result;
+use super::Result;
 use super::buffer::BytePacketBuffer;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]

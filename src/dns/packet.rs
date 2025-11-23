@@ -1,4 +1,4 @@
-use crate::Result;
+use super::Result;
 use super::buffer::BytePacketBuffer;
 use super::header::DnsHeader;
 use super::question::{DnsQuestion, QueryType};

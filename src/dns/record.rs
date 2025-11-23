@@ -1,4 +1,4 @@
-use crate::Result;
+use super::Result;
 use super::buffer::BytePacketBuffer;
 use super::question::QueryType;
 use std::net::Ipv4Addr;

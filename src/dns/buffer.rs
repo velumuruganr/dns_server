@@ -1,4 +1,4 @@
-use crate::Result;
+use super::Result;
 
 pub struct BytePacketBuffer {
     pub buf: [u8; 512],
