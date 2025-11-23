@@ -1,5 +1,5 @@
 use crate::Result;
-use crate::buffer::BytePacketBuffer;
+use super::buffer::BytePacketBuffer;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum ResultCode {

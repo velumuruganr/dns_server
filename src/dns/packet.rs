@@ -1,8 +1,8 @@
 use crate::Result;
-use crate::buffer::BytePacketBuffer;
-use crate::header::DnsHeader;
-use crate::question::{DnsQuestion, QueryType};
-use crate::record::DnsRecord;
+use super::buffer::BytePacketBuffer;
+use super::header::DnsHeader;
+use super::question::{DnsQuestion, QueryType};
+use super::record::DnsRecord;
 use std::net::Ipv4Addr;
 
 #[derive(Clone, Debug)]

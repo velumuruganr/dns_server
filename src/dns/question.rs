@@ -1,5 +1,5 @@
 use crate::Result;
-use crate::buffer::BytePacketBuffer;
+use super::buffer::BytePacketBuffer;
 
 #[derive(PartialEq, Eq, Debug, Clone, Hash, Copy)]
 pub enum QueryType {

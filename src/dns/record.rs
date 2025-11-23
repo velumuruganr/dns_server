@@ -1,6 +1,6 @@
 use crate::Result;
-use crate::buffer::BytePacketBuffer;
-use crate::question::QueryType;
+use super::buffer::BytePacketBuffer;
+use super::question::QueryType;
 use std::net::Ipv4Addr;
 use std::net::Ipv6Addr;
 

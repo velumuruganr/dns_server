@@ -1,13 +1,9 @@
-mod buffer;
-mod header;
-mod packet;
-mod question;
-mod record;
+mod dns;
 
-use buffer::BytePacketBuffer;
-use header::ResultCode;
-use packet::DnsPacket;
-use question::{DnsQuestion, QueryType};
+use dns::buffer::BytePacketBuffer;
+use dns::header::ResultCode;
+use dns::packet::DnsPacket;
+use dns::question::{DnsQuestion, QueryType};
 use std::net::Ipv4Addr;
 use std::net::UdpSocket;
 
