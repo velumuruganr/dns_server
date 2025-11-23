@@ -1,15 +1,15 @@
 mod buffer;
 mod header;
+mod packet;
 mod question;
 mod record;
-mod packet;
 
-use std::net::Ipv4Addr;
-use std::net::UdpSocket;
 use buffer::BytePacketBuffer;
 use header::ResultCode;
-use question::{DnsQuestion, QueryType};
 use packet::DnsPacket;
+use question::{DnsQuestion, QueryType};
+use std::net::Ipv4Addr;
+use std::net::UdpSocket;
 
 type Error = Box<dyn std::error::Error>;
 pub type Result<T> = std::result::Result<T, Error>;
@@ -37,7 +37,7 @@ fn lookup(qname: &str, qtype: QueryType, server: (Ipv4Addr, u16)) -> Result<DnsP
     DnsPacket::from_buffer(&mut res_buffer)
 }
 
-fn recursive_lookup(qname: &str, qtype: QueryType)-> Result<DnsPacket> {
+fn recursive_lookup(qname: &str, qtype: QueryType) -> Result<DnsPacket> {
     let mut ns = "198.41.0.4".parse::<Ipv4Addr>().unwrap();
 
     loop {
@@ -61,7 +61,7 @@ fn recursive_lookup(qname: &str, qtype: QueryType)-> Result<DnsPacket> {
             continue;
         }
 
-        let new_ns_name = match response.get_unresolved_ns(qname){
+        let new_ns_name = match response.get_unresolved_ns(qname) {
             Some(x) => x,
             _ => return Ok(response),
         };
@@ -131,8 +131,8 @@ fn main() -> Result<()> {
 
     loop {
         match handle_query(&socket) {
-            Ok(_) => {},
-            Err(e) => eprintln!("An error occured: {}", e)
+            Ok(_) => {}
+            Err(e) => eprintln!("An error occured: {}", e),
         }
     }
 }

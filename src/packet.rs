@@ -1,9 +1,9 @@
-use std::net::Ipv4Addr;
+use crate::Result;
 use crate::buffer::BytePacketBuffer;
 use crate::header::DnsHeader;
 use crate::question::{DnsQuestion, QueryType};
 use crate::record::DnsRecord;
-use crate::Result;
+use std::net::Ipv4Addr;
 
 #[derive(Clone, Debug)]
 pub struct DnsPacket {
@@ -85,7 +85,7 @@ impl DnsPacket {
             .next()
     }
 
-    fn get_ns<'a>(&'a self, qname: &'a str) -> impl Iterator<Item = (&'a str, &'a str)>{
+    fn get_ns<'a>(&'a self, qname: &'a str) -> impl Iterator<Item = (&'a str, &'a str)> {
         self.authorities
             .iter()
             .filter_map(|record| match record {
@@ -110,8 +110,6 @@ impl DnsPacket {
     }
 
     pub fn get_unresolved_ns<'a>(&'a self, qname: &'a str) -> Option<&'a str> {
-        self.get_ns(qname)
-            .map(|(_, host)| host)
-            .next()
+        self.get_ns(qname).map(|(_, host)| host).next()
     }
 }
